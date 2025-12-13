@@ -5,7 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://fcvrxrel0re2" path="res://Assets/Sprites/PowerUps/splitArrowPowerUp.png" id="3_gj8f5"]
 
 [node name="Sppu" instance=ExtResource("1_t8iok")]
+gravity_scale = 0.2
 arrow_scene_reward = ExtResource("2_kpg4b")
+lifetime_sec = 10.0
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_gj8f5")

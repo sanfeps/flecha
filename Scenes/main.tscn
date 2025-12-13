@@ -20,8 +20,13 @@ position = Vector2(543, 1700)
 [node name="Spawner" type="Node2D" parent="."]
 position = Vector2(540, -30)
 script = ExtResource("2_bo1nx")
-fallenScene = ExtResource("3_8gbba")
+falling_scene = ExtResource("3_8gbba")
 powerup_scenes = Array[PackedScene]([ExtResource("4_kry3j"), ExtResource("5_21xkr")])
+powerup_chance = 0.0
+x_min = null
+x_max = null
+y_spawn = null
+base_interval = 3.0
 
 [node name="Walls" type="Node2D" parent="."]
 

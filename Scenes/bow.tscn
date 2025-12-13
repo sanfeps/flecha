@@ -1,17 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqqne51ejji6q"]
+[gd_scene load_steps=5 format=3 uid="uid://cqqne51ejji6q"]
 
 [ext_resource type="Script" uid="uid://cxv8rfj4761l4" path="res://Scripts/Bow.gd" id="1_aj83j"]
 [ext_resource type="PackedScene" uid="uid://cubbmpgachkhx" path="res://Scenes/Arrows/arrowBase.tscn" id="2_ju2r0"]
 [ext_resource type="Texture2D" uid="uid://c8oqmdxyy7kgu" path="res://Assets/Sprites/bow.png" id="3_ju2r0"]
+[ext_resource type="Texture2D" uid="uid://dr858sxgfjnf7" path="res://Assets/Sprites/ArrowSprites/baseArrow.png" id="4_sas2l"]
 
 [node name="Bow" type="Node2D"]
 script = ExtResource("1_aj83j")
 normal_arrow_scene = ExtResource("2_ju2r0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 5
 rotation = 4.71239
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_ju2r0")
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, -129)
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(0, -33)
+
+[node name="String" type="Line2D" parent="."]
+width = 4.0
+default_color = Color(0.350894, 0.276132, 0.260023, 1)
+antialiased = true
+
+[node name="LeftTip" type="Marker2D" parent="."]
+position = Vector2(-195, 7)
+
+[node name="RightTip" type="Marker2D" parent="."]
+position = Vector2(195, 7)
+
+[node name="Nock" type="Marker2D" parent="."]
+position = Vector2(0, 7)
+
+[node name="ArrowPreview" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(1.13687e-13, -64)
+rotation = -1.5708
+scale = Vector2(0.121, 0.121)
+texture = ExtResource("4_sas2l")
+offset = Vector2(-33.36, 16.14)

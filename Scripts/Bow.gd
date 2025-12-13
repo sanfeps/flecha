@@ -1,8 +1,18 @@
 extends Node2D
 
-@export var normal_arrow_scene: PackedScene   # pon aquí la flecha normal (antes era arrow_scene)
-var _next_arrow_scene: PackedScene = null     # la que da el power-up (solo 1 tiro)
-@onready var muzzle: Marker2D = $Marker2D
+@export var normal_arrow_scene: PackedScene
+var _next_arrow_scene: PackedScene = null
+
+@onready var muzzle: Marker2D = $Muzzle
+
+# --- Cuerda + preview ---
+@onready var string_line: Line2D = $String
+@onready var left_tip: Marker2D = $LeftTip
+@onready var right_tip: Marker2D = $RightTip
+@onready var nock: Marker2D = $Nock 
+@onready var arrow_preview: Sprite2D = $ArrowPreview
+
+var _nock_rest_pos: Vector2 = Vector2.ZERO
 
 @export var angle_left_deg: float = -170.0
 @export var angle_right_deg: float = -10.0
@@ -20,12 +30,18 @@ var _next_arrow_scene: PackedScene = null     # la que da el power-up (solo 1 ti
 @export var tap_max_dist_px: float = 20.0
 @export var tap_max_time_ms: int = 220
 
-# NUEVO: cuánto tienes que arrastrar para considerar que NO es tap
+# Cuánto tienes que arrastrar para considerar que NO es tap
 @export var drag_start_dist_px: float = 15.0
+
+# Offset visual del preview (si tu sprite mira hacia arriba, suele ser -90)
+@export var arrow_preview_offset_deg: float = 0
+
+# Si cargas un poquito, ya cuenta como "drag" para que al soltar dispare
+@export var charge_drag_threshold: float = 0.02
 
 var _touching: bool = false
 var _touch_id: int = -1
-var _has_dragged: bool = false   # <-- NUEVO
+var _has_dragged: bool = false
 
 var _start_pos: Vector2 = Vector2.ZERO
 var _tap_start_pos: Vector2 = Vector2.ZERO
@@ -37,10 +53,15 @@ var _charge: float = 0.0
 
 var _last_arrow: Node = null
 
+func _ready() -> void:
+	_nock_rest_pos = nock.position
+	_update_string()
+	_recompute_aim_from_bow_rotation()
+	_reset_pull_visual()
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed and not _touching:
-			# Inicio de gesto (puede acabar siendo tap o drag)
 			_touching = true
 			_touch_id = event.index
 			_has_dragged = false
@@ -53,7 +74,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			_update_from_screen(event.position)
 
 		elif (not event.pressed) and _touching and event.index == _touch_id:
-			# Fin de gesto: decidimos si fue TAP o DISPARO
 			_touching = false
 			_touch_id = -1
 
@@ -66,10 +86,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				_fire_arrow()
 
 			_charge = min_charge
+			_reset_pull_visual()
 
 	elif event is InputEventScreenDrag:
 		if _touching and event.index == _touch_id:
-			# Si te has movido lo suficiente, ya NO es tap
 			var moved: float = (event.position - _start_pos).length()
 			if moved > drag_start_dist_px:
 				_has_dragged = true
@@ -87,6 +107,7 @@ func _update_from_screen(p: Vector2) -> void:
 	var ang_deg: float = lerp(angle_left_deg, angle_right_deg, t_x)
 	_aim_angle_rad = deg_to_rad(ang_deg)
 
+	# Rotación visual del arco (incluye offset del sprite del arco)
 	rotation = _aim_angle_rad + deg_to_rad(sprite_offset_deg)
 
 	# Y -> carga (solo hacia abajo desde el inicio)
@@ -94,18 +115,31 @@ func _update_from_screen(p: Vector2) -> void:
 	var t_y: float = clamp(dy / max_pull_px, 0.0, 1.0)
 	_charge = lerp(min_charge, max_charge, t_y)
 
+	# Si hay carga, no lo consideramos tap
+	if _charge > charge_drag_threshold:
+		_has_dragged = true
+
+	# Dirección física del disparo (sin offset visual)
 	_aim_dir = Vector2.RIGHT.rotated(_aim_angle_rad).normalized()
+
+	# Visual: cuerda + preview
+	_set_pull_visual(_charge * max_pull_px, _aim_dir)
 
 func _fire_arrow() -> void:
 	var scene_to_fire: PackedScene = _next_arrow_scene if _next_arrow_scene != null else normal_arrow_scene
 	if scene_to_fire == null:
 		return
 
-	# consume el power-up (solo 1 disparo)
 	_next_arrow_scene = null
 
+	# 🔒 CONGELAMOS valores en el momento del disparo
 	var dir: Vector2 = _aim_dir
-	var speed: float = lerp(min_shot_speed, max_shot_speed, _charge)
+	var charge: float = _charge
+
+	if charge <= 0.001:
+		return  # seguridad extra
+
+	var speed: float = lerp(min_shot_speed, max_shot_speed, charge)
 	var v: Vector2 = dir * speed
 
 	var arrow := scene_to_fire.instantiate()
@@ -113,11 +147,12 @@ func _fire_arrow() -> void:
 
 	(arrow as Node2D).global_position = muzzle.global_position
 
-	# si todas tus flechas heredan de ArrowBase (recomendado)
 	if arrow is ArrowBase:
 		arrow.init_with_velocity(v)
 	elif arrow is RigidBody2D:
 		arrow.linear_velocity = v
+		
+
 
 	_last_arrow = arrow
 
@@ -133,3 +168,47 @@ func _try_activate_last_arrow_special() -> void:
 
 func set_next_arrow_scene(scene: PackedScene) -> void:
 	_next_arrow_scene = scene
+
+# -------------------------
+# VISUAL: CUERDA + PREVIEW
+# -------------------------
+
+func _recompute_aim_from_bow_rotation() -> void:
+	var aim_angle: float = rotation - deg_to_rad(sprite_offset_deg)
+	_aim_dir = Vector2.RIGHT.rotated(aim_angle).normalized()
+
+func _set_pull_visual(pull_px: float, aim_dir: Vector2) -> void:
+	var pull_dir: Vector2 = -aim_dir.normalized()
+	var clamped_pull: float = clamp(pull_px, 0.0, max_pull_px)
+
+	nock.position = _nock_rest_pos + pull_dir * clamped_pull
+	arrow_preview.position = nock.position
+
+	# PREVIEW apunta al centro/salida del arco (Nock -> Muzzle)
+	var preview_vec: Vector2 = muzzle.global_position - arrow_preview.global_position
+	if preview_vec.length() > 0.001:
+		var preview_dir: Vector2 = preview_vec.normalized()
+		arrow_preview.global_rotation = preview_dir.angle() + deg_to_rad(arrow_preview_offset_deg)
+
+	_update_string()
+
+func _reset_pull_visual() -> void:
+	nock.position = _nock_rest_pos
+	arrow_preview.position = _nock_rest_pos
+
+	_recompute_aim_from_bow_rotation()
+
+	# PREVIEW apunta al centro/salida del arco (Nock -> Muzzle)
+	var preview_vec: Vector2 = muzzle.global_position - arrow_preview.global_position
+	if preview_vec.length() > 0.001:
+		var preview_dir: Vector2 = preview_vec.normalized()
+		arrow_preview.global_rotation = preview_dir.angle() + deg_to_rad(arrow_preview_offset_deg)
+
+	_update_string()
+
+func _update_string() -> void:
+	string_line.points = PackedVector2Array([
+		left_tip.position,
+		nock.position,
+		right_tip.position
+	])
