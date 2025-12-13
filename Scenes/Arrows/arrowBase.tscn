@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cubbmpgachkhx"]
+
+[ext_resource type="Script" uid="uid://ddr0v2xdq1yle" path="res://Scripts/ArrowBase.gd" id="1_f3v8t"]
+[ext_resource type="Texture2D" uid="uid://drvqtk58dr4n2" path="res://Assets/Sprites/arrow.png" id="2_6ieei"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2u0bd"]
+bounce = 0.9
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5paiy"]
+size = Vector2(6.15912, 105.095)
+
+[node name="ArrowBase" type="RigidBody2D" groups=["arrows"]]
+collision_layer = 2
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_2u0bd")
+gravity_scale = 0.0
+angular_damp = 50.0
+script = ExtResource("1_f3v8t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1.5)
+rotation = -3.14159
+scale = Vector2(1.78597, -1.01813)
+shape = SubResource("RectangleShape2D_5paiy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.785398
+scale = Vector2(0.121116, 0.121116)
+texture = ExtResource("2_6ieei")

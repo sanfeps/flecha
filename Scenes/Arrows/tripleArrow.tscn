@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://fdovb237emwu"]
+
+[ext_resource type="PackedScene" uid="uid://bbh8s5t8stpu6" path="res://Scenes/Arrows/straightArrow.tscn" id="1_g8d15"]
+
+[node name="TripleArrow" instance=ExtResource("1_g8d15")]

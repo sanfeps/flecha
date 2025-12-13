@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqqne51ejji6q"]
+
+[ext_resource type="Script" uid="uid://cxv8rfj4761l4" path="res://Scripts/Bow.gd" id="1_aj83j"]
+[ext_resource type="PackedScene" uid="uid://cubbmpgachkhx" path="res://Scenes/Arrows/arrowBase.tscn" id="2_ju2r0"]
+[ext_resource type="Texture2D" uid="uid://c8oqmdxyy7kgu" path="res://Assets/Sprites/bow.png" id="3_ju2r0"]
+
+[node name="Bow" type="Node2D"]
+script = ExtResource("1_aj83j")
+arrow_scene = ExtResource("2_ju2r0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 4.71239
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_ju2r0")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -129)

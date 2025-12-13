@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3gy16njio0a2"]
+
+[ext_resource type="Script" uid="uid://cqcpp24i07snm" path="res://Scripts/Fallen.gd" id="1_8y8yk"]
+[ext_resource type="Texture2D" uid="uid://cqmcote878t63" path="res://Assets/Sprites/peach.png" id="2_kashe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k2bu7"]
+radius = 51.0
+
+[node name="Fallen" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 2
+gravity_scale = 0.2
+script = ExtResource("1_8y8yk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_kashe")
+offset = Vector2(-12.53, -48.715)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 0.00287998
+shape = SubResource("CircleShape2D_k2bu7")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhv6heo7mttov"]
+
+[ext_resource type="PackedScene" uid="uid://cqqne51ejji6q" path="res://Scenes/bow.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://b0sxt2p7n6okb" path="res://Scripts/Spawner.gd" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://ypraqf51d5cm" path="res://Scenes/Arrows/splitArrow.tscn" id="2_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://b3gy16njio0a2" path="res://Scenes/fallen.tscn" id="3_8gbba"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jjgbg"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bo1nx"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8gbba"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Bow" parent="." instance=ExtResource("1_jjgbg")]
+position = Vector2(543, 1700)
+arrow_scene = ExtResource("2_jjvhh")
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(540, -30)
+script = ExtResource("2_bo1nx")
+fallenScene = ExtResource("3_8gbba")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+collision_mask = 6
+
+[node name="WallRight" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_jjgbg")
+
+[node name="WallLeft" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(1080, 0)
+rotation = 4.71239
+shape = SubResource("WorldBoundaryShape2D_bo1nx")
+
+[node name="WallBottom" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(0, 1920)
+shape = SubResource("WorldBoundaryShape2D_8gbba")
+
+[node name="UI" type="CanvasLayer" parent="."]
