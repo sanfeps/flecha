@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlqv4gppmwc2q"
-path="res://.godot/imported/straightArrows.png-8a4e55e13aa14dcf19f4b657072ded9b.ctex"
+uid="uid://bvnwfqt26vxkq"
+path="res://.godot/imported/icon.png-1ada42475fe106c59fb9885a73678c1a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/straightArrows.png"
-dest_files=["res://.godot/imported/straightArrows.png-8a4e55e13aa14dcf19f4b657072ded9b.ctex"]
+source_file="res://Assets/Sprites/icon.png"
+dest_files=["res://.godot/imported/icon.png-1ada42475fe106c59fb9885a73678c1a.ctex"]
 
 [params]
 

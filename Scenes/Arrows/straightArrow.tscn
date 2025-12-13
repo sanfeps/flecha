@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://bbh8s5t8stpu6"]
 
 [ext_resource type="Script" uid="uid://knm4g5vec1oa" path="res://Scripts/StraightArrow.gd" id="1_sknpw"]
-[ext_resource type="Texture2D" uid="uid://dlqv4gppmwc2q" path="res://Assets/Sprites/straightArrows.png" id="2_lewuf"]
+[ext_resource type="Texture2D" uid="uid://civydcockb4g8" path="res://Assets/Sprites/ArrowSprites/straightArrow.png" id="2_sknpw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sknpw"]
 bounce = 0.9
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44h22"]
-size = Vector2(20, 30)
+size = Vector2(31, 36)
 
 [node name="StraightArrow" type="RigidBody2D" groups=["arrows"]]
 collision_layer = 2
@@ -18,10 +18,10 @@ angular_damp = 50.0
 script = ExtResource("1_sknpw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -50)
+position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_44h22")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 0.785398
+rotation = -1.5708
 scale = Vector2(0.0699925, 0.0699925)
-texture = ExtResource("2_lewuf")
+texture = ExtResource("2_sknpw")

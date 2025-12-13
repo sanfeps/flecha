@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name Fallen
 
 
 @export var lifetime_sec: float = 10.0 

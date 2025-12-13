@@ -1,6 +1,7 @@
 extends Node2D
 
-@export var arrow_scene: PackedScene
+@export var normal_arrow_scene: PackedScene   # pon aquí la flecha normal (antes era arrow_scene)
+var _next_arrow_scene: PackedScene = null     # la que da el power-up (solo 1 tiro)
 @onready var muzzle: Marker2D = $Marker2D
 
 @export var angle_left_deg: float = -170.0
@@ -96,21 +97,30 @@ func _update_from_screen(p: Vector2) -> void:
 	_aim_dir = Vector2.RIGHT.rotated(_aim_angle_rad).normalized()
 
 func _fire_arrow() -> void:
-	if arrow_scene == null:
+	var scene_to_fire: PackedScene = _next_arrow_scene if _next_arrow_scene != null else normal_arrow_scene
+	if scene_to_fire == null:
 		return
+
+	# consume el power-up (solo 1 disparo)
+	_next_arrow_scene = null
 
 	var dir: Vector2 = _aim_dir
 	var speed: float = lerp(min_shot_speed, max_shot_speed, _charge)
-	var v := dir * speed
+	var v: Vector2 = dir * speed
 
-	var arrow := arrow_scene.instantiate()
+	var arrow := scene_to_fire.instantiate()
 	get_tree().current_scene.add_child(arrow)
 
 	(arrow as Node2D).global_position = muzzle.global_position
 
-	arrow.init_with_velocity(v)
+	# si todas tus flechas heredan de ArrowBase (recomendado)
+	if arrow is ArrowBase:
+		arrow.init_with_velocity(v)
+	elif arrow is RigidBody2D:
+		arrow.linear_velocity = v
 
 	_last_arrow = arrow
+
 
 func _try_activate_last_arrow_special() -> void:
 	if _last_arrow == null:
@@ -120,3 +130,6 @@ func _try_activate_last_arrow_special() -> void:
 		return
 	if _last_arrow.has_method("activate_special"):
 		_last_arrow.activate_special()
+
+func set_next_arrow_scene(scene: PackedScene) -> void:
+	_next_arrow_scene = scene

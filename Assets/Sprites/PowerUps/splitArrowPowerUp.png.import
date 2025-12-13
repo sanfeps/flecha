@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btjjhk3isuvqo"
-path="res://.godot/imported/splitArrows.png-29bc4260e4b88b02a44b6cd29ed97528.ctex"
+uid="uid://fcvrxrel0re2"
+path="res://.godot/imported/splitArrowPowerUp.png-67ed71cf40d83d2a7331ebaad4da586f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/splitArrows.png"
-dest_files=["res://.godot/imported/splitArrows.png-29bc4260e4b88b02a44b6cd29ed97528.ctex"]
+source_file="res://Assets/Sprites/PowerUps/splitArrowPowerUp.png"
+dest_files=["res://.godot/imported/splitArrowPowerUp.png-67ed71cf40d83d2a7331ebaad4da586f.ctex"]
 
 [params]
 

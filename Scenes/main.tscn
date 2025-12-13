@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhv6heo7mttov"]
+[gd_scene load_steps=9 format=3 uid="uid://bhv6heo7mttov"]
 
 [ext_resource type="PackedScene" uid="uid://cqqne51ejji6q" path="res://Scenes/bow.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://b0sxt2p7n6okb" path="res://Scripts/Spawner.gd" id="2_bo1nx"]
-[ext_resource type="PackedScene" uid="uid://ypraqf51d5cm" path="res://Scenes/Arrows/splitArrow.tscn" id="2_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://b3gy16njio0a2" path="res://Scenes/fallen.tscn" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://b10qhtsw0uda" path="res://Scenes/PowerUps/straightArrowPowerUp.tscn" id="4_kry3j"]
+[ext_resource type="PackedScene" uid="uid://c3l4do7lg38kt" path="res://Scenes/PowerUps/splitArrowPowerUp.tscn" id="5_21xkr"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jjgbg"]
 
@@ -15,12 +16,12 @@
 
 [node name="Bow" parent="." instance=ExtResource("1_jjgbg")]
 position = Vector2(543, 1700)
-arrow_scene = ExtResource("2_jjvhh")
 
 [node name="Spawner" type="Node2D" parent="."]
 position = Vector2(540, -30)
 script = ExtResource("2_bo1nx")
 fallenScene = ExtResource("3_8gbba")
+powerup_scenes = Array[PackedScene]([ExtResource("4_kry3j"), ExtResource("5_21xkr")])
 
 [node name="Walls" type="Node2D" parent="."]
 

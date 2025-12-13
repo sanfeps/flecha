@@ -1,5 +1,5 @@
 [gd_scene load_steps=2 format=3 uid="uid://evvp5gb8v4gl"]
 
-[ext_resource type="PackedScene" uid="uid://bbh8s5t8stpu6" path="res://Scenes/Arrows/straightArrow.tscn" id="1_e151g"]
+[ext_resource type="PackedScene" uid="uid://bbh8s5t8stpu6" path="res://Scenes/Arrows/straightArrow.tscn" id="1_sf44v"]
 
-[node name="StasisArrow" instance=ExtResource("1_e151g")]
+[node name="StasisArrow" instance=ExtResource("1_sf44v")]

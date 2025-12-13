@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Ricochet"
+config/name="Flecha"
 run/main_scene="uid://bhv6heo7mttov"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
@@ -38,3 +38,4 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

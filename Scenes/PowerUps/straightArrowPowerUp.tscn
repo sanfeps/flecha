@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://b10qhtsw0uda"]
+
+[ext_resource type="PackedScene" uid="uid://b3gy16njio0a2" path="res://Scenes/fallen.tscn" id="1_xjnoa"]
+[ext_resource type="Script" uid="uid://bqiyox45t3vd4" path="res://Scripts/PowerUp.gd" id="2_tqmfe"]
+[ext_resource type="PackedScene" uid="uid://bbh8s5t8stpu6" path="res://Scenes/Arrows/straightArrow.tscn" id="3_ml1iy"]
+[ext_resource type="Texture2D" uid="uid://4r545478y7wo" path="res://Assets/Sprites/PowerUps/straightArrowPowerUp.png" id="4_1fif7"]
+
+[node name="Sapu" instance=ExtResource("1_xjnoa")]
+script = ExtResource("2_tqmfe")
+arrow_scene_reward = ExtResource("3_ml1iy")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_1fif7")
+offset = Vector2(0.835, 12.555)

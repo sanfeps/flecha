@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drvqtk58dr4n2"
-path="res://.godot/imported/arrow.png-bbd335070bdf81e88eb62bb6c396cfe3.ctex"
+uid="uid://c2tqr7s8s2xst"
+path="res://.godot/imported/splitArrow.png-ec134a446604424991cdee4c6955a7c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/arrow.png"
-dest_files=["res://.godot/imported/arrow.png-bbd335070bdf81e88eb62bb6c396cfe3.ctex"]
+source_file="res://Assets/Sprites/ArrowSprites/splitArrow.png"
+dest_files=["res://.godot/imported/splitArrow.png-ec134a446604424991cdee4c6955a7c3.ctex"]
 
 [params]
 
