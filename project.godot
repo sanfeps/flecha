@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Flecha"
 run/main_scene="uid://bhv6heo7mttov"
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
 [display]

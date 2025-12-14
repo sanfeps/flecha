@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fcvrxrel0re2"
-path="res://.godot/imported/splitArrowPowerUp.png-67ed71cf40d83d2a7331ebaad4da586f.ctex"
+uid="uid://cnphp3p2fgc6g"
+path="res://.godot/imported/pngtree-columns-clipart-different-ancient-greek-columns-on-a-white-background-cartoon-vector-png-image_6793647.png-fbb9decb5a413a61db0bf66c7e650040.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/PowerUps/splitArrowPowerUp.png"
-dest_files=["res://.godot/imported/splitArrowPowerUp.png-67ed71cf40d83d2a7331ebaad4da586f.ctex"]
+source_file="res://Assets/Sprites/pngtree-columns-clipart-different-ancient-greek-columns-on-a-white-background-cartoon-vector-png-image_6793647.png"
+dest_files=["res://.godot/imported/pngtree-columns-clipart-different-ancient-greek-columns-on-a-white-background-cartoon-vector-png-image_6793647.png-fbb9decb5a413a61db0bf66c7e650040.ctex"]
 
 [params]
 

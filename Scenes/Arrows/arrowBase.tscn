@@ -6,22 +6,22 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2u0bd"]
 bounce = 0.9
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3v8t"]
-size = Vector2(20.1571, 42.2343)
+[sub_resource type="CircleShape2D" id="CircleShape2D_f3v8t"]
+radius = 18.002449
 
 [node name="ArrowBase" type="RigidBody2D" groups=["arrows"]]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 4
 physics_material_override = SubResource("PhysicsMaterial_2u0bd")
 gravity_scale = 0.0
 angular_damp = 50.0
 script = ExtResource("1_f3v8t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5.33313e-05, -47.5)
-rotation = -3.14159
+position = Vector2(1.2475357e-07, -36)
+rotation = -4.728097
 scale = Vector2(1.78597, -1.01813)
-shape = SubResource("RectangleShape2D_f3v8t")
+shape = SubResource("CircleShape2D_f3v8t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -1.5708
