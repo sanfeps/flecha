@@ -123,7 +123,7 @@ func _update_from_screen(p: Vector2) -> void:
 	_aim_dir = Vector2.RIGHT.rotated(_aim_angle_rad).normalized()
 
 	# Visual: cuerda + preview
-	_set_pull_visual(_charge * max_pull_px, _aim_dir)
+	_set_pull_visual(_charge * max_pull_px)
 
 func _fire_arrow() -> void:
 	var scene_to_fire: PackedScene = _next_arrow_scene if _next_arrow_scene != null else normal_arrow_scene
@@ -177,33 +177,19 @@ func _recompute_aim_from_bow_rotation() -> void:
 	var aim_angle: float = rotation - deg_to_rad(sprite_offset_deg)
 	_aim_dir = Vector2.RIGHT.rotated(aim_angle).normalized()
 
-func _set_pull_visual(pull_px: float, aim_dir: Vector2) -> void:
-	var pull_dir: Vector2 = -aim_dir.normalized()
+func _set_pull_visual(pull_px: float) -> void:
 	var clamped_pull: float = clamp(pull_px, 0.0, max_pull_px)
-
-	nock.position = _nock_rest_pos + pull_dir * clamped_pull
+	nock.position = _nock_rest_pos + Vector2(0.0, _nock_rest_pos.y + clamped_pull)
 	arrow_preview.position = nock.position
-
-	# PREVIEW apunta al centro/salida del arco (Nock -> Muzzle)
 	var preview_vec: Vector2 = muzzle.global_position - arrow_preview.global_position
 	if preview_vec.length() > 0.001:
-		var preview_dir: Vector2 = preview_vec.normalized()
-		arrow_preview.global_rotation = preview_dir.angle() + deg_to_rad(arrow_preview_offset_deg)
-
+		arrow_preview.global_rotation = preview_vec.angle() + deg_to_rad(arrow_preview_offset_deg)
 	_update_string()
 
 func _reset_pull_visual() -> void:
 	nock.position = _nock_rest_pos
 	arrow_preview.position = _nock_rest_pos
-
 	_recompute_aim_from_bow_rotation()
-
-	# PREVIEW apunta al centro/salida del arco (Nock -> Muzzle)
-	var preview_vec: Vector2 = muzzle.global_position - arrow_preview.global_position
-	if preview_vec.length() > 0.001:
-		var preview_dir: Vector2 = preview_vec.normalized()
-		arrow_preview.global_rotation = preview_dir.angle() + deg_to_rad(arrow_preview_offset_deg)
-
 	_update_string()
 
 func _update_string() -> void:

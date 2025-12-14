@@ -11,7 +11,7 @@ radius = 18.002449
 
 [node name="ArrowBase" type="RigidBody2D" groups=["arrows"]]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_2u0bd")
 gravity_scale = 0.0
 angular_damp = 50.0
