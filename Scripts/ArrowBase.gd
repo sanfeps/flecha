@@ -20,12 +20,12 @@ func init_with_velocity(v: Vector2) -> void:
 		rotation = _last_angle + deg_to_rad(sprite_offset_deg)
 	_initialized = true
 
-'''func _physics_process(_dt: float) -> void:
+func _physics_process(_dt: float) -> void:
 	if not _initialized:
 		return
 	var v := linear_velocity
 	_last_angle = v.angle()
-	rotation = _last_angle + deg_to_rad(sprite_offset_deg)'''
+	rotation = _last_angle + deg_to_rad(sprite_offset_deg)
 
 func activate_special() -> void:
 	if _special_used:

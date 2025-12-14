@@ -37,7 +37,6 @@ func spawn_one_at(x: float, y: float) -> Node2D:
 func _run_loop() -> void:
 	while _running:
 		var r := randi() % 3
-		print(r)
 		match r:
 			0:
 				await PatternRow.run(self)

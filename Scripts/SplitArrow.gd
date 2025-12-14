@@ -54,4 +54,4 @@ func _spawn_child(angle_rad: float, speed: float) -> void:
 		a.linear_velocity = dir * speed
 		# Si tus flechas se auto-orientan en ArrowBase, no hace falta,
 		# pero esto evita el “primer frame raro”:
-		a.rotation = dir.angle() + deg_to_rad(-90.0)
+		a.rotation = dir.angle() + deg_to_rad(90.0)

@@ -9,3 +9,4 @@ func _do_special() -> void:
 	if not keep_speed:
 		s = up_speed
 	linear_velocity = Vector2.UP * s
+	rotation = linear_velocity.angle() + deg_to_rad(sprite_offset_deg)
